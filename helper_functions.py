@@ -26,6 +26,52 @@ def load_and_prep_image(filename, img_shape=224, scale=True):
     return img/255.
   else:
     return img
+# Note: The following function only works with multiclass classificaiton problem
+# Pre-req: load_and_pre_image function
+# creating prediction on random images using load_and_prep_image function
+import os
+import random
+import matplotlib.pyplot as plt 
+def make_predictions_random_image(test_data,test_dir):
+  """
+  Make predictions on random image on multi-class image dataset
+
+  Args:
+  test_data (BatchDataset): testing data needs to be in BatchDataset type
+  test_dir(str): test data directory to pull image from directory
+
+  Returns:
+    A subplot for predictions of 3 randomly chosen images from test data
+  """
+
+  class_names = test_data.class_names
+  plt.figure(figsize=(27,15))
+  for i in range(3):
+    # chaoose random image from a random cls
+    random_cls_nm = random.choice(class_names)
+    filename = random.choice(os.listdir(test_dir + "/" + random_cls_nm))
+    filepath = test_dir +"/" + random_cls_nm + "/" + filename
+    #print(filepath) 
+
+    # load and pre-process image
+    img = hf.load_and_prep_image(filepath,scale=False)
+    img_expanded = tf.expand_dims(img,axis=0) # adding 0th dimension
+    # print(img_expande  d.shape) # need to have shape same as train_data.shape (None,224,224,3)
+    # making predictions with loaded big dog model
+    pred_prob = loaded_model_bigdog.predict(img_expanded) # get prediction probablities
+    pred_class = class_names[pred_prob.argmax()] # get index of prediction probablity
+    print(pred_prob)
+    print(pred_class) 
+    #Plot image(s)
+    plt.subplot(1,3,i+1) 
+    plt.imshow(img/255.) 
+    if random_cls_nm == pred_class :
+      # if predicted class matches truth class, make text green
+      title_color = 'g'
+    else:
+      title_color = 'r'
+    plt.title(f"actual: {random_cls_nm}, pred: {pred_class}, prob: {pred_prob.max():.2f}", c=title_color)
+    plt.axis(False);
 
 # Note: The following confusion matrix code is a remix of Scikit-Learn's 
 # plot_confusion_matrix function - https://scikit-learn.org/stable/modules/generated/sklearn.metrics.plot_confusion_matrix.html
