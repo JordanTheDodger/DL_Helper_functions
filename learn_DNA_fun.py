@@ -203,12 +203,12 @@ class dna_tool_sets ():
         # sequences. How many times does it occur in all?
         if n == 7:
             most_freq_7 = max (combined_repeats.values())
-            print "Q8: The most frequently repeats occur: %d times \n"%most_freq_7
+            print ("Q8: The most frequently repeats occur: %d times \n"%most_freq_7)
         # Q10:Which one of the following repeats of length 7 has a maximum 
         #number of occurrences?
             most_freq_7_seq = [key for key in combined_repeats if \
                        combined_repeats[key] == max(combined_repeats.values())]
-            print "Q10: The following repeats occured most frequently: \n", most_freq_7_seq
+            print ("Q10: The following repeats occured most frequently: \n",most_freq_7_seq)
         # Q9:Find all repeats of length 10 in the input file. Let's use Max to 
         #specify the number of copies of the most frequent repeat of length 10. 
         #How many different 10-base sequences occur Max times?
@@ -218,8 +218,8 @@ class dna_tool_sets ():
                              if value == max(combined_repeats.values())])
         
         
-            print "Q9: The number of different 10-base sequences occur max times: %d \n"\
-                  %count_most_freq_10
+            print ("Q9: The number of different 10-base sequences occur max times: %d \n"\
+                  %count_most_freq_10)
         
         # uncomment the return code to return the repeats with counts for each record 
         # (repeats_set) and for the whole file (combined_repeats)
