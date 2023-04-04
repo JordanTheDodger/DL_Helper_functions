@@ -41,41 +41,7 @@ class dna_tool_sets ():
                 self.dict[header] += line # add dna sequence to the header accordingly
         f_reader.close()
     
-    def count_records (self):
-        """ this function count number of records in the file"""
-        number_of_records = len(self.dict) # check records in dictornary
-        # Q1: How many records are in the multi-FASTA file?
-        print "Q1: How many records are in the multi-FASTA file: %d \n"\
-               %number_of_records
-        #return number_of_records
-        
-    def check_length(self):
-        """
-        this function check length of each record and the according header 
-        of the record
-        """
-        length_dict = {} # creat a dictornary to record length of each record
-        for key, value in self.dict.items():
-            length_dict[key] = len(value)
-            
-        lengths = length_dict.values() # count length for each sequence
-        
-        max_length = max(lengths) # max length of sequences 
-        min_length = min(lengths) # min length of sequences
-        # identifier of sequences with max length
-        record_max_length = [item for item in length_dict if length_dict[item] == max_length]
-        # identifier of sequences with min length        
-        record_min_length = [item for item in length_dict if length_dict[item] == min_length]
-        
-        # Q2: What is the length of the longest sequence in the file?
-        print "Q2: The length of the longest sequence: %d \n"%max_length, \
-              "The number of longest sequence: %d \n"%len(record_max_length)
-        # Q3: What is the length of the shortest sequence in the file?
-        print "Q3: The length of the shortest sequence: %d \n"%min_length, \
-              "The number of shortest sequence: %d \n"%len(record_min_length)
-        # uncomment the return code to return the whole length information for 
-        # each record
-        #return length_dict
+    
                
     def find_pos(self, dna):
         """ 
@@ -174,21 +140,21 @@ class dna_tool_sets ():
         #Q4: What is the length of the longest ORF appearing in reading
         #frame 2 of any of the sequences?
         frame2_max_length = max(frame2, key = lambda x: x[1])
-        print "Q4: The length of longest ORF in frame2: %d\n"%frame2_max_length[1]
+        print("Q4: The length of longest ORF in frame2: %d\n"%frame2_max_length[1])
         #Q5: What is the starting position of the longest ORF in reading frame 1 
         #in any of the sequences? 
         
         frame1_max_length_pos = max(frame1, key = lambda x: x[1])
-        print "Q5: The start position of longest ORF in frame1: %d\n"%frame1_max_length_pos[0]
+        print ("Q5: The start position of longest ORF in frame1: %d\n"%frame1_max_length_pos[0])
         #Q6: What is the length of the longest ORF appearing in any sequence and 
         #in any forward reading frame?
         max_length = max(all_frames, key = lambda x: x[1])
-        print "Q6: The longest ORF of all frames and sequences: %d\n"%max_length[1]
+        print ("Q6: The longest ORF of all frames and sequences: %d\n"%max_length[1])
         #Q7: What is the length of the longest forward ORF that appears in the 
         #sequence with the identifier gi|142022655|gb|EQ086233.1|129?
 
         max_length_id = max(id_frames, key = lambda x: x[1])
-        print "Q7: The length of longest ORF for ", idx, "is: %d \n" %max_length_id[1]
+        print ("Q7: The length of longest ORF for ", idx, "is: %d \n" %max_length_id[1])
         
         # uncomment the return code to return the whole orf information 
         #including starting position and length of each frame for each sequence
