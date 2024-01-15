@@ -1,6 +1,12 @@
-
-
+import os
+import random
+import datetime
+import zipfile
+import numpy as np
+import itertools
+import matplotlib.pyplot as plt 
 import tensorflow as tf
+from sklearn.metrics import confusion_matrix,accuracy_score, precision_recall_fscore_support
 
 # Create a function to import an image and resize it to be able to be used with our model
 def load_and_prep_image(filename, img_shape=224, scale=True):
@@ -28,9 +34,6 @@ def load_and_prep_image(filename, img_shape=224, scale=True):
 # Note: The following function only works with multiclass classificaiton problem
 # Pre-req: load_and_pre_image function
 # creating prediction on random images using load_and_prep_image function
-import os
-import random
-import matplotlib.pyplot as plt 
 def make_predictions_random_image(test_data,test_dir):
   """
   Make predictions on random image on multi-class image dataset
@@ -74,12 +77,6 @@ def make_predictions_random_image(test_data,test_dir):
 
 # Note: The following confusion matrix code is a remix of Scikit-Learn's 
 # plot_confusion_matrix function - https://scikit-learn.org/stable/modules/generated/sklearn.metrics.plot_confusion_matrix.html
-import itertools
-import matplotlib.pyplot as plt
-import numpy as np
-from sklearn.metrics import confusion_matrix
-
-# Our function needs a different name to sklearn's plot_confusion_matrix
 def make_confusion_matrix(y_true, y_pred, classes=None, figsize=(10, 10), text_size=15, norm=False, savefig=False): 
   """Makes a labelled confusion matrix comparing predictions and ground truth labels.
 
@@ -180,8 +177,7 @@ def pred_and_plot(model, filename, class_names):
   plt.imshow(img)
   plt.title(f"Prediction: {pred_class}")
   plt.axis(False);
-  
-import datetime
+
 
 def create_tensorboard_callback(dir_name, experiment_name):
   """
@@ -202,8 +198,6 @@ def create_tensorboard_callback(dir_name, experiment_name):
   return tensorboard_callback
 
 # Plot the validation and training data separately
-import matplotlib.pyplot as plt
-
 def plot_loss_curves(history):
   """
   Returns separate loss curves for training and validation metrics.
@@ -279,9 +273,6 @@ def compare_historys(original_history, new_history, initial_epochs=5):
     plt.show()
   
 # Create function to unzip a zipfile into current working directory 
-# (since we're going to be downloading and unzipping a few files)
-import zipfile
-
 def unzip_data(filename):
   """
   Unzips filename into the current working directory.
@@ -293,10 +284,7 @@ def unzip_data(filename):
   zip_ref.extractall()
   zip_ref.close()
 
-# Walk through an image classification directory and find out how many files (images)
-# are in each subdirectory.
-import os
-
+# Walk through an image classification directory and find out how many files
 def walk_through_dir(dir_path):
   """
   Walks through dir_path returning its contents.
@@ -314,8 +302,6 @@ def walk_through_dir(dir_path):
     print(f"There are {len(dirnames)} directories and {len(filenames)} images in '{dirpath}'.")
     
 # Function to evaluate: accuracy, precision, recall, f1-score
-from sklearn.metrics import accuracy_score, precision_recall_fscore_support
-
 def calculate_results(y_true, y_pred):
   """
   Calculates model accuracy, precision, recall and f1 score of a binary classification model.
@@ -335,3 +321,25 @@ def calculate_results(y_true, y_pred):
                   "recall": model_recall,
                   "f1": model_f1}
   return model_results
+
+#Function to plot timeseries data
+def plot_time_series(timestamps,values,format='.',start=0,end=None,label=None):
+  """
+  Plot the timestamps aganist values
+
+  Parameters:
+  timestamps: array of timestamps
+  values: array of value associated with timestamps
+  format: kind of plot, default
+  start: start point for plot
+  end: end point for plot
+  label: label to show on plot
+  """
+  #plotting data
+  plt.figure(figsize=(12,9))
+  plt.plot(timestamps[start:end], values[start:end],format,label=label)
+  plt.xlabel("Time")
+  plt.ylabel("BTC Price")
+  if label:
+    plt.legend(fontsize=12)
+  plt.grid(True)
