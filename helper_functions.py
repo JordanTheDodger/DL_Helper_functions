@@ -336,7 +336,7 @@ def plot_time_series(timestamps,values,format='.',start=0,end=None,label=None):
   label: label to show on plot
   """
   #plotting data
-  plt.figure(figsize=(12,9))
+  # plt.figure(figsize=(12,9))
   plt.plot(timestamps[start:end], values[start:end],format,label=label)
   plt.xlabel("Time")
   plt.ylabel("BTC Price")
