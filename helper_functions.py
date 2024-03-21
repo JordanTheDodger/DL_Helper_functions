@@ -178,6 +178,30 @@ def pred_and_plot(model, filename, class_names):
   plt.title(f"Prediction: {pred_class}")
   plt.axis(False);
 
+def make_preds(model,windowed_train_data):
+  """
+  Returns predictions for a trained model
+
+  Args:
+  model: trained machine learning model
+  tarin_data: windowed train data (same data used in training)
+  """
+
+  predictions = model.predict(windowed_train_data)
+  return tf.squeeze(predictions) # 1D array
+
+def create_model_checkpoint(model_name, save_path="model_experiments"):
+  """
+  Allow saving best performing checkpoint of machine learning model
+
+  Args:
+   model_name: Name of the model
+   
+  """
+  return tf.keras.callbacks.ModelCheckpoint(filepath=os.path.join(save_path, model_name),
+                                            verbose=2, 
+                                            save_best_only=True) #saving best performing checkpoint
+
 
 def create_tensorboard_callback(dir_name, experiment_name):
   """
