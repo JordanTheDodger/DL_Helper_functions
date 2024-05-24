@@ -1,5 +1,5 @@
 """
-The program includes a set of tools for dna sequence analyses. To use the tool 
+The program includes a set of tools for dna sequence analysis. To use the tool 
 sets, please assign the path and file name to the class function. For example:
 dna_tools = dna_tool_sets ("../data/dna.example.fasta")
 Then, call the functions in the class, e.g call function to check length of dna
