@@ -8,6 +8,13 @@ import matplotlib.pyplot as plt
 import tensorflow as tf
 from sklearn.metrics import confusion_matrix,accuracy_score, precision_recall_fscore_support
 
+class Helper:
+    def __init__(self,func_select:str)->None:
+        self.func_select = func_select
+
+    def __str__(self)->str:
+        attrs:str = ','.join(f'{k}={v!r}' for k,v in self.__dict__.items())
+        return f'{self.__class__.__name__}({attrs})'
 # Create a function to import an image and resize it to be able to be used with our model
 def load_and_prep_image(filename, img_shape=224, scale=True):
   """
